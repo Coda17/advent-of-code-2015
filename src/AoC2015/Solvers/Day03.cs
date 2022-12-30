@@ -1,6 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-
-namespace AoC2015.Solvers;
+﻿namespace AoC2015.Solvers;
 
 public sealed class Day03 : BaseProblem<int>
 {
