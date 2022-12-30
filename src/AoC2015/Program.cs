@@ -1,6 +1,6 @@
 ﻿using AoCHelper;
 
-Solver.SolveLast(options =>
+Solver.SolveAll(options =>
 {
     options.ShowConstructorElapsedTime = true;
     options.ShowTotalElapsedTimePerDay = true;

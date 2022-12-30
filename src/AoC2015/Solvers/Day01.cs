@@ -1,6 +1,6 @@
 ﻿namespace AoC2015.Solvers;
 
-public sealed class Day01 : BaseProblem
+public sealed class Day01 : BaseProblem<int>
 {
     private readonly string _input;
 
@@ -9,9 +9,9 @@ public sealed class Day01 : BaseProblem
         _input = File.ReadAllText(InputFilePath);
     }
 
-    protected override string Solve1() => _input.Aggregate(0, (i, c) => i + (c == '(' ? 1 : -1)).ToString();
+    protected override int Solve1() => _input.Aggregate(0, (i, c) => i + (c == '(' ? 1 : -1));
 
-    protected override string Solve2()
+    protected override int Solve2()
     {
         var floor = 0;
         for (var i = 0; i < _input.Length; ++i)
@@ -19,7 +19,7 @@ public sealed class Day01 : BaseProblem
             floor += _input[i] == '(' ? 1 : -1;
             if (floor == -1)
             {
-                return $"{i + 1}";
+                return i + 1;
             }
         }
 
