@@ -1,4 +1,5 @@
 ﻿using System.Text.RegularExpressions;
+using SheepTools.Model;
 
 namespace AoC2015.Solvers;
 
@@ -19,8 +20,8 @@ public sealed partial class Day06 : BaseProblem<int>
                         "turn on" => Direction.On,
                         _ => Direction.Off
                     },
-                    new Point2D(int.Parse(match.Groups["x1"].Value), int.Parse(match.Groups["y1"].Value)),
-                    new Point2D(int.Parse(match.Groups["x2"].Value), int.Parse(match.Groups["y2"].Value)));
+                    new IntPoint(int.Parse(match.Groups["x1"].Value), int.Parse(match.Groups["y1"].Value)),
+                    new IntPoint(int.Parse(match.Groups["x2"].Value), int.Parse(match.Groups["y2"].Value)));
             });
     }
 
@@ -80,9 +81,7 @@ public sealed partial class Day06 : BaseProblem<int>
         return lights.Where(l => l is not null).Sum(y => y.Sum(x => x));
     }
 
-    private record Instruction(Direction D, Point2D P1, Point2D P2);
-
-    private record Point2D(int X, int Y);
+    private record Instruction(Direction D, IntPoint P1, IntPoint P2);
 
     private enum Direction
     {
