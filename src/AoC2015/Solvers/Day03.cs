@@ -1,4 +1,6 @@
-﻿namespace AoC2015.Solvers;
+﻿using SheepTools.Model;
+
+namespace AoC2015.Solvers;
 
 public sealed class Day03 : BaseProblem<int>
 {
@@ -11,23 +13,15 @@ public sealed class Day03 : BaseProblem<int>
 
     protected override int Solve1()
     {
-        var santa = new Point2D();
-        var visited = new Dictionary<Point2D, int>
+        var santa = new IntPoint(0, 0);
+        var visited = new Dictionary<IntPoint, int>
         {
             { santa, 1 }
         };
 
         foreach (var c in _input)
         {
-            santa = c switch
-            {
-                '^' => santa with { Y = santa.Y + 1 },
-                'v' => santa with { Y = santa.Y - 1 },
-                '>' => santa with { X = santa.X + 1 },
-                '<' => santa with { X = santa.X - 1 },
-                _ => santa
-            };
-
+            santa = santa.Move(c);
             visited[santa] = visited.ContainsKey(santa) ? visited[santa] + 1 : 1;
         }
 
@@ -36,9 +30,9 @@ public sealed class Day03 : BaseProblem<int>
 
     protected override int Solve2()
     {
-        var santa = new Point2D();
-        var roboSanta = new Point2D();
-        var visited = new Dictionary<Point2D, int>
+        var santa = new IntPoint(0, 0);
+        var roboSanta = new IntPoint(0, 0);
+        var visited = new Dictionary<IntPoint, int>
         {
             { santa, 1 }
         };
@@ -46,14 +40,7 @@ public sealed class Day03 : BaseProblem<int>
         for (var i = 0; i < _input.Length; ++i)
         {
             var current = i % 2 == 0 ? santa : roboSanta;
-            current = _input[i] switch
-            {
-                '^' => current with { Y = current.Y + 1 },
-                'v' => current with { Y = current.Y - 1 },
-                '>' => current with { X = current.X + 1 },
-                '<' => current with { X = current.X - 1 },
-                _ => current
-            };
+            current = current.Move(_input[i]);
 
             visited[current] = visited.ContainsKey(current) ? visited[current] + 1 : 1;
 
@@ -69,6 +56,4 @@ public sealed class Day03 : BaseProblem<int>
 
         return visited.Count;
     }
-
-    internal record Point2D(int X = 0, int Y = 0);
 }
